@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProducerService {
 
@@ -19,9 +21,9 @@ public class ProducerService {
         System.out.println("Message sent to Kafka");
     }
 
-    public void addPerson(Person person) {
+    public void addPerson(List<Person> persons) {
         // validations (if any)
-        kafkaTemplate.send(KafkaMasterConstants.CREATE_PERSON_TOPIC, person);
+        kafkaTemplate.send(KafkaMasterConstants.CREATE_PERSON_TOPIC, persons);
         System.out.println("Person creation request sent to Kafka");
     }
 

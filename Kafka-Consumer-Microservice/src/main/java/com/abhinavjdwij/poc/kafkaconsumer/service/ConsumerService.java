@@ -8,6 +8,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConsumerService {
 
@@ -26,9 +28,10 @@ public class ConsumerService {
             containerFactory = "GenericConcurrentListener"
     )
     public void createPersonSubscriber(ConsumerRecord consumerRecord) {
-        System.out.println("Message received from Kafka to create person");
-        Person p = KafkaMasterUtility.consumerRecordValueParser(consumerRecord, new TypeReference<Person>(){});
-        System.out.println(p);
+        System.out.println("Message received from Kafka to create persons");
+        List<Person> persons = KafkaMasterUtility.consumerRecordValueParser(consumerRecord, new TypeReference<List<Person>>(){});
+        System.out.println("Person list size = " + persons.size());
+        persons.forEach(System.out::println);
     }
 
 }
